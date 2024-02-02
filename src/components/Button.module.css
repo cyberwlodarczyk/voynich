@@ -1,0 +1,18 @@
+.button {
+  background-color: #25e4b4;
+  color: #1b2222;
+  border-radius: 3px;
+  border: none;
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.25px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s ease;
+  line-height: 1.25;
+}
+
+.button:hover {
+  background-color: #17b890;
+}

@@ -1,0 +1,37 @@
+.div {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  color: #25e4b4;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  margin-left: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.input {
+  color: inherit;
+  caret-color: #25e4b4;
+  border-radius: 3px;
+  border: 2px solid #25e4b4;
+  padding: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: transparent;
+  outline: none;
+  transition: border-color 0.2s ease;
+  letter-spacing: 1px;
+}
+
+.input:hover,
+.input:focus {
+  border-color: #17b890;
+}
+
+.input::placeholder {
+  color: #3f5050;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
