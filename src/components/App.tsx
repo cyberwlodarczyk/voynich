@@ -1,32 +1,31 @@
-import { useState } from "react";
+import { Link, Switch, Route } from "wouter";
 import styles from "./App.module.css";
-import { Button } from "./Button";
-import { Input } from "./Input";
+import { Decrypt, Home, Init, NotFound } from "./pages";
+import { Logo } from "./styled";
 
 export function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   return (
     <>
       <header className={styles.header}>
-        <h1 className={styles.h1}>voynich</h1>
+        <Link href="/">
+          <Logo />
+        </Link>
       </header>
       <main className={styles.main}>
-        <Input
-          value={username}
-          onChange={(value) => setUsername(value)}
-          type="text"
-          label="username"
-          placeholder="john"
-        />
-        <Input
-          value={password}
-          onChange={(value) => setPassword(value)}
-          type="password"
-          label="password"
-          placeholder="secret"
-        />
-        <Button>download</Button>
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="/init">
+            <Init />
+          </Route>
+          <Route path="/decrypt">
+            <Decrypt />
+          </Route>
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
       </main>
     </>
   );

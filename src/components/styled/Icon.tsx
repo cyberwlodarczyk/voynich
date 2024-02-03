@@ -1,21 +1,21 @@
-import { PropsWithChildren } from "react";
+import { SVGProps } from "react";
+import { clsx } from "clsx";
 import styles from "./Icon.module.css";
 
-export interface IconProps {
+export interface IconProps extends SVGProps<SVGSVGElement> {
   size: number;
 }
 
-export function Icon({ children, size }: PropsWithChildren<IconProps>) {
+export function Icon({ size, className, ...props }: IconProps) {
   return (
     <svg
+      {...props}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width={size}
       height={size}
-      className={styles.svg}
-    >
-      {children}
-    </svg>
+      className={clsx(styles.svg, className)}
+    />
   );
 }
 
