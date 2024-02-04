@@ -10,6 +10,10 @@ export function getRandomValues(bytes: number) {
   return crypto.getRandomValues(new Uint8Array(bytes));
 }
 
+export function getRandomUUID() {
+  return crypto.randomUUID();
+}
+
 export function generateSalt() {
   return getRandomValues(SALT_SIZE);
 }

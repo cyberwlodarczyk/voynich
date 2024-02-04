@@ -4,6 +4,7 @@ const NAME = "voynich";
 const VERSION = 1;
 const STORE = "passwords";
 const KEY = 0;
+
 const SCHEMA = z.object({
   salt: z.instanceof(Uint8Array),
   iv: z.instanceof(Uint8Array),
