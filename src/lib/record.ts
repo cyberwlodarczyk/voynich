@@ -1,17 +1,21 @@
 import { z } from "zod";
 
+const CATEGORIES = [
+  "personal",
+  "work",
+  "finance",
+  "shopping",
+  "travel",
+  "social",
+  "other",
+] as const;
+
+export type Category = (typeof CATEGORIES)[number];
+
 const RECORD = z.object({
   id: z.string().uuid(),
   name: z.string(),
-  category: z.enum([
-    "personal",
-    "work",
-    "finance",
-    "shopping",
-    "travel",
-    "social",
-    "other",
-  ]),
+  category: z.enum(CATEGORIES),
   username: z.optional(z.string()),
   email: z.optional(z.string()),
   password: z.optional(z.string()),

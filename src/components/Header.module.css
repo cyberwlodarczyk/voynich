@@ -1,4 +1,11 @@
-.a {
+.header {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.logo {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -12,16 +19,16 @@
   transition: border-color 0.2s ease;
 }
 
-.a:focus-visible {
+.logo:focus-visible {
   border-color: #25e4b4;
 }
 
-.span {
+.text {
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: 1px;
 }
 
-.svg {
+.icon {
   color: #25e4b4;
 }
