@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const CATEGORIES = [
+export const CATEGORIES = [
   "personal",
   "work",
   "finance",

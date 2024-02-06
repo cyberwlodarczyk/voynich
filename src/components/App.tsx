@@ -2,6 +2,7 @@ import { Switch, Route } from "wouter";
 import styles from "./App.module.css";
 import { Home, NotFound } from "./pages";
 import { Header } from "./Header";
+import { Add } from "./Add";
 
 export function App() {
   return (
@@ -11,6 +12,9 @@ export function App() {
         <Switch>
           <Route path="/">
             <Home />
+          </Route>
+          <Route path="/add">
+            <Add />
           </Route>
           <Route>
             <NotFound />
