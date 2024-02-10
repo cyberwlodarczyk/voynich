@@ -3,6 +3,7 @@ import styles from "./App.module.css";
 import { Home, NotFound } from "./pages";
 import { Header } from "./Header";
 import { Add } from "./Add";
+import { Item } from "./Item";
 
 export function App() {
   return (
@@ -15,6 +16,9 @@ export function App() {
           </Route>
           <Route path="/add">
             <Add />
+          </Route>
+          <Route path="/item">
+            <Item />
           </Route>
           <Route>
             <NotFound />

@@ -6,7 +6,6 @@
   border-radius: 1000px;
   font-weight: 500;
   letter-spacing: 0.25px;
-  cursor: pointer;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -16,5 +15,6 @@
 
 .chip[tabindex="0"]:hover,
 .chip[tabindex="0"]:focus-visible {
+  cursor: pointer;
   background-color: #242e2e;
 }
