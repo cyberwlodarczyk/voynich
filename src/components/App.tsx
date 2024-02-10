@@ -1,15 +1,20 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Link } from "wouter";
+import { Home, NotFound, Add, Details } from "./pages";
+import { ShieldIcon } from "./styled";
 import styles from "./App.module.css";
-import { Home, NotFound } from "./pages";
-import { Header } from "./Header";
-import { Add } from "./Add";
-import { Item } from "./Item";
 
 export function App() {
   return (
     <>
-      <Header />
-      <main className={styles.main}>
+      <header className={styles.header}>
+        <Link href="/">
+          <a className={styles.logo}>
+            <span className={styles.logoText}>voynich</span>
+            <ShieldIcon size={40} className={styles.logoIcon} />
+          </a>
+        </Link>
+      </header>
+      <main className={styles.router}>
         <Switch>
           <Route path="/">
             <Home />
@@ -17,8 +22,8 @@ export function App() {
           <Route path="/add">
             <Add />
           </Route>
-          <Route path="/item">
-            <Item />
+          <Route path="/:id">
+            <Details />
           </Route>
           <Route>
             <NotFound />

@@ -33,7 +33,7 @@
     rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
 }
 
-.icon {
+.recordIcon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,7 +43,7 @@
   border-radius: 4px;
 }
 
-.text {
+.recordText {
   font-weight: 500;
   font-size: 1.15rem;
   white-space: nowrap;

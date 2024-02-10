@@ -1,10 +1,10 @@
-import styles from "./NotFound.module.css";
 import { Heading } from "../styled";
+import styles from "./NotFound.module.css";
 
 export function NotFound() {
   return (
     <>
-      <p className={styles.p}>404</p>
+      <p className={styles.status}>404</p>
       <Heading>page not found</Heading>
     </>
   );

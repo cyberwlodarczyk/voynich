@@ -1,4 +1,5 @@
-import styles from "./Item.module.css";
+import { PropsWithChildren, useState } from "react";
+import { useParams, DefaultParams } from "wouter";
 import {
   AtSignIcon,
   Chip,
@@ -8,27 +9,28 @@ import {
   IconButton,
   KeyIcon,
   UserIcon,
-} from "./styled";
-import { Fab } from "./Fab";
-import { EditIcon, CopyIcon } from "./styled";
-import { PropsWithChildren, useState } from "react";
+  EditIcon,
+  CopyIcon,
+  Fab,
+} from "../styled";
+import styles from "./Details.module.css";
 
-export interface FieldProps extends PropsWithChildren {
+interface FieldProps extends PropsWithChildren {
   icon: typeof Icon;
   label: string;
   text: string;
 }
 
-export function Field({ icon: Icon, label, text, children }: FieldProps) {
+function Field({ icon: Icon, label, text, children }: FieldProps) {
   return (
     <div className={styles.field}>
-      <Icon size={24} className={styles.icon} />
+      <Icon size={24} className={styles.fieldLeftIcon} />
       <div>
-        <div className={styles.label}>{label}</div>
-        <div className={styles.text}>{text}</div>
+        <div className={styles.fieldLabel}>{label}</div>
+        <div className={styles.fieldText}>{text}</div>
       </div>
-      <div className={styles.space} />
-      <div className={styles.icons}>
+      <div className={styles.fieldSpace} />
+      <div className={styles.fieldRightIcons}>
         {children}
         <IconButton aria-label="copy" icon={CopyIcon} />
       </div>
@@ -36,13 +38,19 @@ export function Field({ icon: Icon, label, text, children }: FieldProps) {
   );
 }
 
-export function Item() {
+export interface DetailsParams extends DefaultParams {
+  id: string;
+}
+
+export function Details() {
+  const { id } = useParams<DetailsParams>();
   const [showPassword, setShowPassword] = useState(false);
+  console.log(id);
   return (
-    <div className={styles.container}>
+    <div className={styles.details}>
       <h1 className={styles.name}>google</h1>
       <Chip>personal</Chip>
-      <div className={styles.fields}>
+      <div>
         <Field icon={UserIcon} label="username" text="lwlodarczyk" />
         <Field
           icon={AtSignIcon}

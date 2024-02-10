@@ -14,7 +14,7 @@ export function Icon({ size, className, ...props }: IconProps) {
       viewBox="0 0 24 24"
       width={size}
       height={size}
-      className={clsx(styles.svg, className)}
+      className={clsx(styles.icon, className)}
     />
   );
 }
