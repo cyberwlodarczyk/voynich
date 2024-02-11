@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useMemo, useState } from "react";
 import { useParams, DefaultParams } from "wouter";
 import {
   AtSignIcon,
@@ -14,6 +14,8 @@ import {
   Fab,
 } from "../styled";
 import styles from "./Details.module.css";
+import { useStore } from "../../lib";
+import { NotFound } from ".";
 
 interface FieldProps extends PropsWithChildren {
   icon: typeof Icon;
@@ -44,30 +46,36 @@ export interface DetailsParams extends DefaultParams {
 
 export function Details() {
   const { id } = useParams<DetailsParams>();
+  const records = useStore((state) => state.records);
+  const record = useMemo(
+    () => records?.find((record) => record.id === id),
+    [records, id]
+  );
   const [showPassword, setShowPassword] = useState(false);
-  console.log(id);
+  if (!record) {
+    return <NotFound />;
+  }
+  const { category, name, email, password, username } = record;
   return (
     <div className={styles.details}>
-      <h1 className={styles.name}>google</h1>
-      <Chip>personal</Chip>
+      <h1 className={styles.name}>{name}</h1>
+      <Chip>{category}</Chip>
       <div>
-        <Field icon={UserIcon} label="username" text="lwlodarczyk" />
-        <Field
-          icon={AtSignIcon}
-          label="email"
-          text="lwlodarczyk@student.agh.edu.pl"
-        />
-        <Field
-          icon={KeyIcon}
-          label="password"
-          text={showPassword ? "pa$$word123!" : "••••••••••••"}
-        >
-          <IconButton
-            onClick={() => setShowPassword((prev) => !prev)}
-            aria-label={showPassword ? "hide" : "show"}
-            icon={showPassword ? EyeOffIcon : EyeIcon}
-          />
-        </Field>
+        {username && <Field icon={UserIcon} label="username" text={username} />}
+        {email && <Field icon={AtSignIcon} label="email" text={email} />}
+        {password && (
+          <Field
+            icon={KeyIcon}
+            label="password"
+            text={showPassword ? password : "••••••••••••"}
+          >
+            <IconButton
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? "hide" : "show"}
+              icon={showPassword ? EyeOffIcon : EyeIcon}
+            />
+          </Field>
+        )}
       </div>
       <Fab icon={EditIcon} text="edit" />
     </div>

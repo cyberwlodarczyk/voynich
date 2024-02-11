@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Category, Record, getRandomUUID } from "../../lib";
+import { Category, useStore } from "../../lib";
 import {
   Fab,
   Icon,
@@ -24,21 +24,18 @@ const ICONS: { [key in Category]: typeof Icon } = {
   other: MoreHorizontalIcon,
 };
 
-const RECORDS: Record[] = Array.from({ length: 10 }, () => ({
-  id: getRandomUUID(),
-  category: "personal",
-  name: "Google",
-  createdAt: new Date(),
-}));
-
 export function Home() {
+  const records = useStore((state) => state.records);
+  if (!records) {
+    return null;
+  }
   return (
     <>
       <Link href="/add">
         <Fab text="New" icon={PlusIcon} />
       </Link>
       <ul className={styles.records}>
-        {RECORDS.map((record) => {
+        {records.map((record) => {
           const Icon = ICONS[record.category];
           return (
             <li key={record.id}>

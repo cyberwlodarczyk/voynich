@@ -19,7 +19,6 @@ const RECORD = z.object({
   username: z.optional(z.string()),
   email: z.optional(z.string()),
   password: z.optional(z.string()),
-  description: z.optional(z.string()),
   createdAt: z.coerce.date(),
   editedAt: z.optional(z.coerce.date()),
 });
@@ -30,4 +29,8 @@ export type Record = z.infer<typeof RECORD>;
 
 export function parse(data: string) {
   return SCHEMA.parse(JSON.parse(data));
+}
+
+export function stringify(data: Record[]) {
+  return JSON.stringify(data);
 }

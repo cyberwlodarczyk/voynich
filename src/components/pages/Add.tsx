@@ -1,16 +1,46 @@
 import { useState } from "react";
-import { Category, CATEGORIES } from "../../lib";
+import { useLocation } from "wouter";
+import {
+  Category,
+  CATEGORIES,
+  useStore,
+  getRandomUUID,
+  Record,
+} from "../../lib";
 import { FormField, Form, Button, Chip, Hint } from "../styled";
 import styles from "./Add.module.css";
 
 export function Add() {
+  const update = useStore((state) => state.update);
+  const [, setLocation] = useLocation();
   const [category, setCategory] = useState<Category>("personal");
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <Form>
+    <Form
+      onSubmit={() => {
+        const record: Record = {
+          id: getRandomUUID(),
+          category,
+          name,
+          createdAt: new Date(),
+        };
+        if (username) {
+          record.username = username;
+        }
+        if (email) {
+          record.email = email;
+        }
+        if (password) {
+          record.password = password;
+        }
+        update((records) => [...records, record]).then(() =>
+          setLocation(`/${record.id}`)
+        );
+      }}
+    >
       <Hint>all fields except the name are optional</Hint>
       <div
         role="listbox"
