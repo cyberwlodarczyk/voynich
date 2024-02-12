@@ -1,5 +1,6 @@
-import { PropsWithChildren, useMemo, useState } from "react";
-import { useParams, DefaultParams } from "wouter";
+import { PropsWithChildren, useState } from "react";
+import { Link } from "wouter";
+import { useRecord } from "../../lib";
 import {
   AtSignIcon,
   Chip,
@@ -13,9 +14,8 @@ import {
   CopyIcon,
   Fab,
 } from "../styled";
+import { NotFound } from "./NotFound";
 import styles from "./Details.module.css";
-import { useStore } from "../../lib";
-import { NotFound } from ".";
 
 interface FieldProps extends PropsWithChildren {
   icon: typeof Icon;
@@ -40,22 +40,13 @@ function Field({ icon: Icon, label, text, children }: FieldProps) {
   );
 }
 
-export interface DetailsParams extends DefaultParams {
-  id: string;
-}
-
 export function Details() {
-  const { id } = useParams<DetailsParams>();
-  const records = useStore((state) => state.records);
-  const record = useMemo(
-    () => records?.find((record) => record.id === id),
-    [records, id]
-  );
+  const record = useRecord();
   const [showPassword, setShowPassword] = useState(false);
   if (!record) {
     return <NotFound />;
   }
-  const { category, name, email, password, username } = record;
+  const { id, category, name, email, password, username } = record;
   return (
     <div className={styles.details}>
       <h1 className={styles.name}>{name}</h1>
@@ -77,7 +68,9 @@ export function Details() {
           </Field>
         )}
       </div>
-      <Fab icon={EditIcon} text="edit" />
+      <Link href={`/${id}/edit`}>
+        <Fab icon={EditIcon} text="edit" />
+      </Link>
     </div>
   );
 }

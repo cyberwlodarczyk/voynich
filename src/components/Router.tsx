@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { Switch, Route } from "wouter";
 import { useStore } from "../lib";
-import { Home, NotFound, Add, Details, Init, Decrypt } from "./pages";
-import { useEffect } from "react";
+import { Home, NotFound, Add, Details, Init, Decrypt, Edit } from "./pages";
 
 export function Router() {
   const { error, db, object, records, connect } = useStore();
@@ -10,13 +10,16 @@ export function Router() {
       connect();
     }
   }, [error, db, connect]);
-  if (db === null) {
+  if (error) {
+    return error.message;
+  }
+  if (!db) {
     return null;
   }
-  if (object === null) {
+  if (!object) {
     return <Init />;
   }
-  if (records === null) {
+  if (!records) {
     return <Decrypt />;
   }
   return (
@@ -29,6 +32,9 @@ export function Router() {
       </Route>
       <Route path="/:id">
         <Details />
+      </Route>
+      <Route path="/:id/edit">
+        <Edit />
       </Route>
       <Route>
         <NotFound />

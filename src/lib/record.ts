@@ -18,7 +18,7 @@ const RECORD = z.object({
   category: z.enum(CATEGORIES),
   username: z.optional(z.string()),
   email: z.optional(z.string()),
-  password: z.optional(z.string()),
+  password: z.string(),
   createdAt: z.coerce.date(),
   editedAt: z.optional(z.coerce.date()),
 });

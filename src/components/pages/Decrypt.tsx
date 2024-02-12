@@ -6,7 +6,14 @@ export function Decrypt() {
   const decrypt = useStore((state) => state.decrypt);
   const [masterPassword, setMasterPassword] = useState("");
   return (
-    <Form onSubmit={() => decrypt(masterPassword)}>
+    <Form
+      onSubmit={async () => {
+        const ok = await decrypt(masterPassword);
+        if (!ok) {
+          setMasterPassword("");
+        }
+      }}
+    >
       <FormField
         value={masterPassword}
         label="master password"

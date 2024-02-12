@@ -1,13 +1,14 @@
+import { DefaultParams, useParams } from "wouter";
 import { create } from "zustand";
+import { useMemo } from "react";
 import {
   decrypt,
   deriveKey,
   encrypt,
   generateIV,
   generateSalt,
-  isCryptoSupported,
 } from "./crypto";
-import { IDBObject, connect, isIndexedDBSupported, load, save } from "./db";
+import { IDBObject, connect, load, save } from "./db";
 import { Record, parse, stringify } from "./record";
 
 export interface StoreState {
@@ -19,11 +20,7 @@ export interface StoreState {
 }
 
 const DEFAULT_STATE: StoreState = {
-  error: !isCryptoSupported()
-    ? new TypeError("Crypto is not supported in this environment.")
-    : !isIndexedDBSupported()
-    ? new TypeError("IndexedDB is not supported in this environment.")
-    : null,
+  error: null,
   db: null,
   object: null,
   key: null,
@@ -33,54 +30,82 @@ const DEFAULT_STATE: StoreState = {
 export interface StoreActions {
   connect(): Promise<void>;
   init(password: string): Promise<void>;
-  decrypt(password: string): Promise<void>;
+  decrypt(password: string): Promise<boolean>;
   update(fn: (records: Record[]) => Record[]): Promise<void>;
   reset(): void;
 }
 
 export type Store = StoreState & StoreActions;
 
+function createError(error: unknown) {
+  return error instanceof Error
+    ? error
+    : new Error(`Something went wrong: ${error}`);
+}
+
 export const useStore = create<Store>((set, get) => ({
   ...DEFAULT_STATE,
   async connect() {
-    const db = await connect();
-    const object = await load(db);
-    set({ db, object });
+    try {
+      const db = await connect();
+      const object = await load(db);
+      set({ db, object });
+    } catch (error) {
+      set({ error: createError(error) });
+    }
   },
   async init(password) {
-    const { db } = get();
-    if (!db) {
-      return;
+    try {
+      const { db } = get();
+      if (!db) {
+        return;
+      }
+      const salt = generateSalt();
+      const key = await deriveKey(password, salt);
+      const iv = generateIV();
+      const data = await encrypt(key, iv, stringify([]));
+      await save(db, { data, iv, salt });
+      set({ object: { data, iv, salt }, key, records: [] });
+    } catch (error) {
+      set({ error: createError(error) });
     }
-    const salt = generateSalt();
-    const key = await deriveKey(password, salt);
-    const iv = generateIV();
-    const data = await encrypt(key, iv, stringify([]));
-    await save(db, { data, iv, salt });
-    set({ object: { data, iv, salt }, key, records: [] });
   },
   async decrypt(password) {
-    const { db, object } = get();
-    if (!db || !object) {
-      return;
+    try {
+      const { db, object } = get();
+      if (!db || !object) {
+        return false;
+      }
+      const { data, iv, salt } = object;
+      const key = await deriveKey(password, salt);
+      const decrypted = await decrypt(key, iv, data);
+      if (!decrypted) {
+        return false;
+      }
+      const records = parse(decrypted);
+      set({ key, records });
+      return true;
+    } catch (error) {
+      set({ error: createError(error) });
+      return false;
     }
-    const { data, iv, salt } = object;
-    const key = await deriveKey(password, salt);
-    const records = parse(await decrypt(key, iv, data));
-    set({ key, records });
   },
   async update(fn) {
-    const { db, object, key, records } = get();
-    if (!db || !object || !key || !records) {
-      return;
+    try {
+      const { db, object, key, records } = get();
+      if (!db || !object || !key || !records) {
+        return;
+      }
+      const { salt } = object;
+      const newRecords = fn(records);
+      const iv = generateIV();
+      const data = await encrypt(key, iv, stringify(newRecords));
+      const newObject = { data, iv, salt };
+      await save(db, newObject);
+      set({ object: newObject, records: newRecords });
+    } catch (error) {
+      set({ error: createError(error) });
     }
-    const { salt } = object;
-    const newRecords = fn(records);
-    const iv = generateIV();
-    const data = await encrypt(key, iv, stringify(newRecords));
-    const newObject = { data, iv, salt };
-    await save(db, newObject);
-    set({ object: newObject, records: newRecords });
   },
   reset() {
     const { db } = get();
@@ -90,3 +115,17 @@ export const useStore = create<Store>((set, get) => ({
     set(DEFAULT_STATE);
   },
 }));
+
+export interface RecordIDParams extends DefaultParams {
+  id: string;
+}
+
+export function useRecord() {
+  const { id } = useParams<RecordIDParams>();
+  const records = useStore((state) => state.records);
+  const record = useMemo(
+    () => records?.find((record) => record.id === id),
+    [id, records]
+  );
+  return record ?? null;
+}

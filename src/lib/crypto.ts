@@ -58,10 +58,18 @@ export async function decrypt(
   iv: Uint8Array,
   data: ArrayBuffer
 ) {
-  const result = await crypto.subtle.decrypt(
-    { name: "AES-GCM", iv },
-    key,
-    data
-  );
-  return new TextDecoder().decode(result);
+  try {
+    const result = await crypto.subtle.decrypt(
+      { name: "AES-GCM", iv },
+      key,
+      data
+    );
+    return new TextDecoder().decode(result);
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "OperationError") {
+      return null;
+    } else {
+      throw error;
+    }
+  }
 }
