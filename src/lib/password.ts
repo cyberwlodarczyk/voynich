@@ -46,3 +46,27 @@ export function generatePassword() {
   }
   return result;
 }
+
+export const PASSWORD_REQUIREMENTS = {
+  MIN: 12,
+  MAX: 64,
+  UPPER: 1,
+  LOWER: 1,
+  DIGIT: 1,
+  SPECIAL: 1,
+};
+
+export function isValidPassword(password: string) {
+  const length = Array.from(password).length,
+    upper = (password.match(/\p{Lu}/gu) ?? []).length,
+    lower = (password.match(/\p{Ll}/gu) ?? []).length,
+    digit = (password.match(/\p{Nd}/gu) ?? []).length;
+  return (
+    length >= PASSWORD_REQUIREMENTS.MIN &&
+    length <= PASSWORD_REQUIREMENTS.MAX &&
+    upper >= PASSWORD_REQUIREMENTS.UPPER &&
+    lower >= PASSWORD_REQUIREMENTS.LOWER &&
+    digit >= PASSWORD_REQUIREMENTS.DIGIT &&
+    length - upper - lower - digit >= PASSWORD_REQUIREMENTS.SPECIAL
+  );
+}

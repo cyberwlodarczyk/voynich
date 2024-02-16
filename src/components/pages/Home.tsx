@@ -1,7 +1,6 @@
 import { Link } from "wouter";
 import { Category, useStore } from "../../lib";
 import {
-  Fab,
   Icon,
   PlusIcon,
   UserIcon,
@@ -10,6 +9,7 @@ import {
   ShoppingCartIcon,
   MapIcon,
   ShareIcon,
+  Fab,
   MoreHorizontalIcon,
 } from "../styled";
 import styles from "./Home.module.css";
@@ -30,10 +30,14 @@ export function Home() {
     return null;
   }
   return (
-    <>
-      <Link href="/add">
-        <Fab text="New" icon={PlusIcon} />
-      </Link>
+    <div className={styles.home}>
+      <div className={styles.header}>
+        <h1 className={styles.heading}>Vault</h1>
+        <div className={styles.space} />
+        <Link href="/add">
+          <Fab aria-label="add" icon={PlusIcon} />
+        </Link>
+      </div>
       <ul className={styles.records}>
         {records.map((record) => {
           const Icon = ICONS[record.category];
@@ -55,6 +59,6 @@ export function Home() {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 }

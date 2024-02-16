@@ -1,25 +1,43 @@
-import { useState } from "react";
-import { Form, FormField, Button } from "../styled";
+import { useEffect, useState } from "react";
 import { useStore } from "../../lib";
+import { Logo, Form, Field, Button } from "../styled";
 
 export function Decrypt() {
   const decrypt = useStore((state) => state.decrypt);
   const [masterPassword, setMasterPassword] = useState("");
+  const [error, setError] = useState<string>();
+  useEffect(() => {
+    setError(undefined);
+  }, [masterPassword]);
   return (
-    <Form
-      onSubmit={async () => {
-        const ok = await decrypt(masterPassword);
-        if (!ok) {
-          setMasterPassword("");
-        }
-      }}
-    >
-      <FormField
-        value={masterPassword}
-        label="master password"
-        onUpdate={(value) => setMasterPassword(value)}
-      />
-      <Button type="submit">confirm</Button>
-    </Form>
+    <>
+      <Logo />
+      <main>
+        <Form
+          heading="welcome back!"
+          small
+          onSubmit={async () => {
+            if (masterPassword === "") {
+              return setError("required");
+            }
+            const ok = await decrypt(masterPassword);
+            if (!ok) {
+              setError("incorrect");
+            }
+          }}
+        >
+          <Field
+            state={masterPassword}
+            setState={setMasterPassword}
+            label="master password"
+            error={error !== undefined}
+            description={error}
+            type="password"
+            aria-required
+          />
+          <Button type="submit">confirm</Button>
+        </Form>
+      </main>
+    </>
   );
 }

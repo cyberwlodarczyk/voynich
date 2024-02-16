@@ -13,6 +13,7 @@ import {
   EditIcon,
   CopyIcon,
   Fab,
+  TagIcon,
 } from "../styled";
 import { NotFound } from "./NotFound";
 import styles from "./Details.module.css";
@@ -49,28 +50,34 @@ export function Details() {
   const { id, category, name, email, password, username } = record;
   return (
     <div className={styles.details}>
-      <h1 className={styles.name}>{name}</h1>
-      <Chip>{category}</Chip>
+      <div className={styles.header}>
+        <div className={styles.name}>{name}</div>
+        <div className={styles.space} />
+        <Link href={`/${id}/edit`}>
+          <Fab icon={EditIcon} aria-label="edit" />
+        </Link>
+      </div>
       <div>
+        <div className={styles.field}>
+          <TagIcon size={24} className={styles.fieldLeftIcon} />
+          <div className={styles.fieldLabel}>category</div>
+          <div className={styles.fieldSpace} />
+          <Chip>{category}</Chip>
+        </div>
         {username && <Field icon={UserIcon} label="username" text={username} />}
         {email && <Field icon={AtSignIcon} label="email" text={email} />}
-        {password && (
-          <Field
-            icon={KeyIcon}
-            label="password"
-            text={showPassword ? password : "••••••••••••"}
-          >
-            <IconButton
-              onClick={() => setShowPassword((prev) => !prev)}
-              aria-label={showPassword ? "hide" : "show"}
-              icon={showPassword ? EyeOffIcon : EyeIcon}
-            />
-          </Field>
-        )}
+        <Field
+          icon={KeyIcon}
+          label="password"
+          text={showPassword ? password : "••••••••••••"}
+        >
+          <IconButton
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "hide" : "show"}
+            icon={showPassword ? EyeOffIcon : EyeIcon}
+          />
+        </Field>
       </div>
-      <Link href={`/${id}/edit`}>
-        <Fab icon={EditIcon} text="edit" />
-      </Link>
     </div>
   );
 }

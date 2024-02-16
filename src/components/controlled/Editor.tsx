@@ -1,5 +1,6 @@
-import { Record } from "../../lib";
-import { FormField, Form, Button } from "../styled";
+import { useState } from "react";
+import { Record, generatePassword } from "../../lib";
+import { Field, Form, Button, IconButton, RefreshIcon } from "../styled";
 import { CategoryPicker } from "./CategoryPicker";
 
 export type EditorState = Pick<
@@ -14,51 +15,72 @@ export interface EditorProps {
 }
 
 export function Editor({ onSubmit, setState, state }: EditorProps) {
+  const [error, setError] = useState<"name" | "password">();
   const { category, name, username, email, password } = state;
-  const createStateHandler =
-    <T extends keyof EditorState>(field: T) =>
+  const createSetState =
+    <T extends keyof EditorState>(field: T, deleteEmpty = true) =>
     (value: Record[T]) => {
       const copy = { ...state };
-      if (value === "") {
+      if (field === error) {
+        setError(undefined);
+      }
+      if (value === "" && deleteEmpty) {
         delete copy[field];
       } else {
         copy[field] = value;
       }
       setState(copy);
     };
+  const setPassword = createSetState("password", false);
   return (
-    <Form onSubmit={onSubmit}>
-      <CategoryPicker
-        state={category}
-        setState={createStateHandler("category")}
-      />
-      <FormField
-        onUpdate={createStateHandler("name")}
-        value={name}
+    <Form
+      heading="new item"
+      onSubmit={() => {
+        if (name === "") {
+          setError("name");
+        } else if (password === "") {
+          setError("password");
+        } else {
+          onSubmit();
+        }
+      }}
+    >
+      <CategoryPicker state={category} setState={createSetState("category")} />
+      <Field
+        setState={createSetState("name", false)}
+        state={name}
         label="name"
-        placeholder="google"
-        required
+        aria-required
+        error={error === "name"}
+        description={error === "name" ? "required" : undefined}
       />
-      <FormField
-        onUpdate={createStateHandler("username")}
-        value={username ?? ""}
+      <Field
+        setState={createSetState("username")}
+        state={username ?? ""}
         label="username"
-        placeholder="john"
       />
-      <FormField
-        onUpdate={createStateHandler("email")}
-        value={email ?? ""}
+      <Field
+        setState={createSetState("email")}
+        state={email ?? ""}
         label="email"
         type="email"
-        placeholder="john@example.com"
       />
-      <FormField
-        onUpdate={createStateHandler("password")}
-        value={password}
+      <Field
+        setState={setPassword}
+        state={password}
         label="password"
-        placeholder="secret"
-        required
-      />
+        aria-required
+        error={error === "password"}
+        description={error === "password" ? "required" : undefined}
+      >
+        <IconButton
+          small
+          type="button"
+          icon={RefreshIcon}
+          aria-label="generate password"
+          onClick={() => setPassword(generatePassword())}
+        />
+      </Field>
       <Button type="submit">confirm</Button>
     </Form>
   );

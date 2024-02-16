@@ -1,50 +1,42 @@
-import { FormHTMLAttributes, InputHTMLAttributes, useId } from "react";
+import { FormHTMLAttributes } from "react";
 import { clsx } from "clsx";
+import { Heading } from "./Heading";
 import styles from "./Form.module.css";
 
-export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {}
+export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
+  small?: boolean;
+  heading?: string;
+}
 
-export function Form({ onSubmit, className, ...props }: FormProps) {
+export function Form({
+  onSubmit,
+  autoComplete,
+  noValidate,
+  children,
+  heading,
+  small,
+  ...props
+}: FormProps) {
   return (
     <form
       {...props}
       onSubmit={(e) => {
-        e.preventDefault();
         onSubmit?.(e);
+        e.preventDefault();
       }}
-      className={clsx(styles.form, className)}
-    />
-  );
-}
-
-export interface FormFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  onUpdate(value: string): void;
-  value: string;
-  label: string;
-}
-
-export function FormField({
-  onUpdate,
-  onChange,
-  className,
-  label,
-  ...props
-}: FormFieldProps) {
-  const id = useId();
-  return (
-    <div className={styles.formField}>
-      <input
-        id={id}
-        className={clsx(styles.formFieldInput, className)}
-        onChange={(e) => {
-          onUpdate(e.target.value);
-          onChange?.(e);
-        }}
-        {...props}
-      />
-      <label htmlFor={id} className={styles.formFieldLabel}>
-        {label}
-      </label>
-    </div>
+      noValidate={noValidate ?? true}
+      autoComplete={autoComplete ?? "off"}
+    >
+      {heading && <Heading>{heading}</Heading>}
+      <div
+        className={clsx(
+          styles.inputs,
+          heading && styles.heading,
+          small && styles.small
+        )}
+      >
+        {children}
+      </div>
+    </form>
   );
 }

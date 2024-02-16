@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { useStore, getRandomUUID } from "../../lib";
+import { useStore, getRandomUUID, generatePassword } from "../../lib";
 import { Editor, EditorState } from "../controlled";
 
 export function Add() {
@@ -9,7 +9,7 @@ export function Add() {
   const [state, setState] = useState<EditorState>({
     category: "personal",
     name: "",
-    password: "",
+    password: generatePassword(),
   });
   return (
     <Editor

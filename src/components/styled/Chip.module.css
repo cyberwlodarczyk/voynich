@@ -1,6 +1,6 @@
 .chip {
   background-color: transparent;
-  border: 2px solid #2d3939;
+  border: 2px solid var(--surface-2);
   outline: none;
   padding: 0.5rem 0.75rem;
   border-radius: 1000px;
@@ -10,11 +10,11 @@
 }
 
 .chip[aria-selected="true"] {
-  border-color: #25e4b4;
+  border-color: var(--primary-1);
 }
 
 .chip[tabindex="0"]:hover,
 .chip[tabindex="0"]:focus-visible {
   cursor: pointer;
-  background-color: #242e2e;
+  background-color: var(--surface-1);
 }

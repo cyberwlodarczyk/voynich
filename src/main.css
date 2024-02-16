@@ -1,3 +1,18 @@
+:root {
+  --shadow-1: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
+    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
+  --shadow-2: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  --primary-1: #73a8fc;
+  --primary-2: #87b4fd;
+  --surface-1: #242e2e;
+  --surface-2: #2d3939;
+  --gray: #6d8888;
+  --text: #e8eded;
+  --background: #1b2222;
+  --error: #ff70a2;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -12,7 +27,17 @@ html {
 
 body {
   flex-grow: 1;
+  display: flex;
   font-family: "Roboto", sans-serif;
-  color: #e8eded;
-  background-color: #1b2222;
+  color: var(--text);
+  background-color: var(--background);
+}
+
+#root {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
 }

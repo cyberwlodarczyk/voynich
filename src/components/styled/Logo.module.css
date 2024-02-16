@@ -1,0 +1,19 @@
+.logo {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.text {
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 0.0625rem;
+}
+
+.icon {
+  color: var(--primary-1);
+}
