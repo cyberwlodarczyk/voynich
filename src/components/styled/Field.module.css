@@ -5,10 +5,10 @@
 }
 
 .label {
-  font-size: 0.85rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: var(--letter-spacing-2);
   color: var(--gray);
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 }
 
 .label.focus {
@@ -24,7 +24,7 @@
   display: inline-flex;
   align-items: center;
   border-bottom: 2px solid var(--gray);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s;
 }
 
 .border.focus {
@@ -39,23 +39,29 @@
   color: var(--text);
   caret-color: var(--text);
   padding: 0.625rem 0;
-  font-size: 1.15rem;
+  font-size: 1rem;
   line-height: 1.25;
   background-color: transparent;
   outline: none;
   border: none;
-  letter-spacing: 0.5px;
+  letter-spacing: var(--letter-spacing-1);
   width: 100%;
 }
 
 .description {
   font-size: 0.75rem;
-  letter-spacing: 1px;
+  letter-spacing: var(--letter-spacing-2);
   margin-top: 0.5rem;
   color: var(--gray);
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 }
 
 .description.error {
   color: var(--error);
+}
+
+@media (min-width: 25em) {
+  .input {
+    font-size: 1.15rem;
+  }
 }

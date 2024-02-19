@@ -1,23 +1,26 @@
 .fab {
-  font-weight: 500;
-  letter-spacing: 0.25px;
-  text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   border: none;
   outline: none;
+  padding: 0.625rem;
   cursor: pointer;
-  padding: 0.75rem;
   color: var(--background);
   background-color: var(--primary-1);
-  box-shadow: var(--shadow-1);
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--box-shadow-1);
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .fab:hover,
 .fab:focus-visible {
   background-color: var(--primary-2);
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--box-shadow-2);
+}
+
+@media (min-width: 25em) {
+  .fab {
+    padding: 0.75rem;
+  }
 }

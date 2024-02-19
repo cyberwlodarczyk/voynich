@@ -1,19 +1,29 @@
-.logo {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
+.header {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 
 .text {
   font-weight: 700;
-  font-size: 2rem;
-  letter-spacing: 0.0625rem;
+  font-size: 1.75rem;
+  letter-spacing: var(--letter-spacing-2);
 }
 
 .icon {
+  width: 2.25rem;
+  height: 2.25rem;
   color: var(--primary-1);
+}
+
+@media (min-width: 25em) {
+  .text {
+    font-size: 2rem;
+  }
+
+  .icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }

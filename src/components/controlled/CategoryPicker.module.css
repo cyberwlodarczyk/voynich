@@ -1,12 +1,12 @@
 .label {
   padding-bottom: 0.625rem;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: var(--letter-spacing-2);
   color: var(--gray);
 }
 
-.picker {
+.chips {
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 0.5rem;
 }

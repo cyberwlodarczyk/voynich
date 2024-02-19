@@ -17,9 +17,9 @@ export function CategoryPicker({ setState, state }: CategoryPickerProps) {
       </div>
       <div
         role="listbox"
-        aria-describedby={labelId}
         aria-orientation="horizontal"
-        className={styles.picker}
+        aria-describedby={labelId}
+        className={styles.chips}
       >
         {CATEGORIES.map((category, index) => (
           <Chip

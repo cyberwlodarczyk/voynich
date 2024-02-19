@@ -4,7 +4,7 @@ import { useRecord, useStore } from "../../lib";
 import { Editor, EditorState } from "../controlled";
 import { NotFound } from "./NotFound";
 
-export function Edit() {
+export function EditItem() {
   const record = useRecord();
   const update = useStore((state) => state.update);
   const [, setLocation] = useLocation();
@@ -14,6 +14,7 @@ export function Edit() {
   }
   return (
     <Editor
+      heading="edit item"
       state={state}
       setState={setState}
       onSubmit={async () => {
@@ -22,7 +23,7 @@ export function Edit() {
           ...records.filter((record) => id != record.id),
           { ...state, id, createdAt, editedAt: new Date() },
         ]);
-        setLocation(`/${id}`);
+        setLocation(`/item/${id}`, { replace: true });
       }}
     />
   );

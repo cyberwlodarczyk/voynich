@@ -18,9 +18,9 @@ export function IconButton({
   return (
     <button
       {...props}
-      className={clsx(styles.iconButton, small && styles.small, className)}
+      className={clsx(styles.button, small && styles.small, className)}
     >
-      <Icon size={small ? 20 : 24} />
+      <Icon small={small} />
     </button>
   );
 }

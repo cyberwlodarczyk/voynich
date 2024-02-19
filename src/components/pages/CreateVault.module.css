@@ -3,13 +3,9 @@
   border-radius: 4px;
   list-style-position: inside;
   background-color: var(--surface-1);
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 225px;
-}
-
-.requirement {
-  letter-spacing: 0.0625rem;
+  padding: 1rem;
+  letter-spacing: var(--letter-spacing-2);
 }

@@ -9,12 +9,13 @@ export type EditorState = Pick<
 >;
 
 export interface EditorProps {
+  heading: string;
   state: EditorState;
   setState(state: EditorState): void;
   onSubmit(): void;
 }
 
-export function Editor({ onSubmit, setState, state }: EditorProps) {
+export function Editor({ onSubmit, setState, state, heading }: EditorProps) {
   const [error, setError] = useState<"name" | "password">();
   const { category, name, username, email, password } = state;
   const createSetState =
@@ -33,55 +34,60 @@ export function Editor({ onSubmit, setState, state }: EditorProps) {
     };
   const setPassword = createSetState("password", false);
   return (
-    <Form
-      heading="new item"
-      onSubmit={() => {
-        if (name === "") {
-          setError("name");
-        } else if (password === "") {
-          setError("password");
-        } else {
-          onSubmit();
-        }
-      }}
-    >
-      <CategoryPicker state={category} setState={createSetState("category")} />
-      <Field
-        setState={createSetState("name", false)}
-        state={name}
-        label="name"
-        aria-required
-        error={error === "name"}
-        description={error === "name" ? "required" : undefined}
-      />
-      <Field
-        setState={createSetState("username")}
-        state={username ?? ""}
-        label="username"
-      />
-      <Field
-        setState={createSetState("email")}
-        state={email ?? ""}
-        label="email"
-        type="email"
-      />
-      <Field
-        setState={setPassword}
-        state={password}
-        label="password"
-        aria-required
-        error={error === "password"}
-        description={error === "password" ? "required" : undefined}
+    <main>
+      <Form
+        heading={heading}
+        onSubmit={() => {
+          if (name === "") {
+            setError("name");
+          } else if (password === "") {
+            setError("password");
+          } else {
+            onSubmit();
+          }
+        }}
       >
-        <IconButton
-          small
-          type="button"
-          icon={RefreshIcon}
-          aria-label="generate password"
-          onClick={() => setPassword(generatePassword())}
+        <CategoryPicker
+          state={category}
+          setState={createSetState("category")}
         />
-      </Field>
-      <Button type="submit">confirm</Button>
-    </Form>
+        <Field
+          setState={createSetState("name", false)}
+          state={name}
+          label="name"
+          aria-required
+          error={error === "name"}
+          description={error === "name" ? "required" : undefined}
+        />
+        <Field
+          setState={createSetState("username")}
+          state={username ?? ""}
+          label="username"
+        />
+        <Field
+          setState={createSetState("email")}
+          state={email ?? ""}
+          label="email"
+          type="email"
+        />
+        <Field
+          setState={setPassword}
+          state={password}
+          label="password"
+          aria-required
+          error={error === "password"}
+          description={error === "password" ? "required" : undefined}
+        >
+          <IconButton
+            small
+            type="button"
+            icon={RefreshIcon}
+            aria-label="generate password"
+            onClick={() => setPassword(generatePassword())}
+          />
+        </Field>
+        <Button type="submit">confirm</Button>
+      </Form>
+    </main>
   );
 }

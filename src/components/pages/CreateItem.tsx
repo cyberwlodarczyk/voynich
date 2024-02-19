@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { useStore, getRandomUUID, generatePassword } from "../../lib";
 import { Editor, EditorState } from "../controlled";
 
-export function Add() {
+export function CreateItem() {
   const update = useStore((state) => state.update);
   const [, setLocation] = useLocation();
   const [state, setState] = useState<EditorState>({
@@ -13,6 +13,7 @@ export function Add() {
   });
   return (
     <Editor
+      heading="create item"
       state={state}
       setState={setState}
       onSubmit={async () => {
@@ -21,7 +22,7 @@ export function Add() {
           ...records,
           { ...state, id, createdAt: new Date() },
         ]);
-        setLocation(`/${id}`);
+        setLocation(`/item/${id}`, { replace: true });
       }}
     />
   );

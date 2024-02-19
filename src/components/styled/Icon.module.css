@@ -5,3 +5,15 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+.icon.standard {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (min-width: 25em) {
+  .icon.standard:not(.small) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

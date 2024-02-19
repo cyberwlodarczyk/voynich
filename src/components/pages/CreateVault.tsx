@@ -1,14 +1,19 @@
 import { useEffect, useId, useState } from "react";
-import { useStore, isValidPassword } from "../../lib";
+import {
+  useStore,
+  isValidPassword,
+  MIN_PASSWORD_LENGTH,
+  MAX_PASSWORD_LENGTH,
+} from "../../lib";
 import { Form, Field, Button, Logo } from "../styled";
-import styles from "./Init.module.css";
+import styles from "./CreateVault.module.css";
 
 interface Error {
   field: 0 | 1;
   message: string;
 }
 
-export function Init() {
+export function CreateVault() {
   const init = useStore((state) => state.init);
   const requirementsId = useId();
   const [masterPassword, setMasterPassword] = useState("");
@@ -31,7 +36,7 @@ export function Init() {
             if (masterPassword === "") {
               setError({ field: 0, message: "required" });
             } else if (!isValidPassword(masterPassword)) {
-              setError({ field: 0, message: "invalid" });
+              setError({ field: 0, message: "weak" });
             } else if (repeatedMasterPassword === "") {
               setError({ field: 1, message: "required" });
             } else if (repeatedMasterPassword !== masterPassword) {
@@ -61,11 +66,13 @@ export function Init() {
             aria-required
           />
           <ul id={requirementsId} className={styles.requirements}>
-            <li className={styles.requirement}>8 to 64 characters</li>
-            <li className={styles.requirement}>1 uppercase letter</li>
-            <li className={styles.requirement}>1 lowercase letter</li>
-            <li className={styles.requirement}>1 digit</li>
-            <li className={styles.requirement}>1 special character</li>
+            <li>
+              {MIN_PASSWORD_LENGTH} to {MAX_PASSWORD_LENGTH} characters
+            </li>
+            <li>1 uppercase letter</li>
+            <li>1 lowercase letter</li>
+            <li>1 digit</li>
+            <li>1 special character</li>
           </ul>
           <Button type="submit">confirm</Button>
         </Form>

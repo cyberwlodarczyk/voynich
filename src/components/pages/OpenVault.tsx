@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "../../lib";
 import { Logo, Form, Field, Button } from "../styled";
 
-export function Decrypt() {
+export function OpenVault() {
   const decrypt = useStore((state) => state.decrypt);
   const [masterPassword, setMasterPassword] = useState("");
   const [error, setError] = useState<string>();
@@ -14,7 +14,7 @@ export function Decrypt() {
       <Logo />
       <main>
         <Form
-          heading="welcome back!"
+          heading="open vault"
           small
           onSubmit={async () => {
             if (masterPassword === "") {

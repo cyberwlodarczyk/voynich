@@ -1,7 +1,15 @@
 import { useEffect } from "react";
 import { Switch, Route } from "wouter";
 import { useStore } from "../lib";
-import { Home, NotFound, Add, Details, Init, Decrypt, Edit } from "./pages";
+import {
+  Vault,
+  NotFound,
+  CreateItem,
+  Item,
+  OpenVault,
+  CreateVault,
+  EditItem,
+} from "./pages";
 
 export function App() {
   const { error, db, object, records, connect } = useStore();
@@ -17,24 +25,24 @@ export function App() {
     return null;
   }
   if (!object) {
-    return <Init />;
+    return <CreateVault />;
   }
   if (!records) {
-    return <Decrypt />;
+    return <OpenVault />;
   }
   return (
     <Switch>
       <Route path="/">
-        <Home />
+        <Vault />
       </Route>
-      <Route path="/add">
-        <Add />
+      <Route path="/item/create">
+        <CreateItem />
       </Route>
-      <Route path="/:id">
-        <Details />
+      <Route path="/item/:id">
+        <Item />
       </Route>
-      <Route path="/:id/edit">
-        <Edit />
+      <Route path="/item/:id/edit">
+        <EditItem />
       </Route>
       <Route>
         <NotFound />

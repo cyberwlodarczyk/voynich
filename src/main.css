@@ -1,8 +1,4 @@
 :root {
-  --shadow-1: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
-    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
-  --shadow-2: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
-    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
   --primary-1: #73a8fc;
   --primary-2: #87b4fd;
   --surface-1: #242e2e;
@@ -11,6 +7,12 @@
   --text: #e8eded;
   --background: #1b2222;
   --error: #ff70a2;
+  --box-shadow-1: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
+    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
+  --box-shadow-2: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  --letter-spacing-1: 0.03125rem;
+  --letter-spacing-2: 0.0625rem;
 }
 
 * {
@@ -37,7 +39,7 @@ body {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 2rem;
+  padding: 2rem;
 }

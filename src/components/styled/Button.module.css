@@ -3,21 +3,27 @@
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: 1.15rem;
   font-weight: 500;
+  font-size: 1rem;
   cursor: pointer;
-  letter-spacing: 0.25px;
+  letter-spacing: var(--letter-spacing-1);
   padding: 0.5rem 1rem;
   width: 100%;
   line-height: 1.25;
   color: var(--background);
   background-color: var(--primary-1);
-  box-shadow: var(--shadow-1);
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--box-shadow-1);
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .button:hover,
 .button:focus-visible {
   background-color: var(--primary-2);
-  box-shadow: var(--shadow-2);
+  box-shadow: var(--box-shadow-2);
+}
+
+@media (min-width: 25em) {
+  .button {
+    font-size: 1.15rem;
+  }
 }

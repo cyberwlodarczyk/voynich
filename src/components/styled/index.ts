@@ -2,6 +2,7 @@ export * from "./Button";
 export * from "./Chip";
 export * from "./Fab";
 export * from "./Field";
+export * from "./FlexGrow";
 export * from "./Form";
 export * from "./Heading";
 export * from "./Icon";

@@ -30,7 +30,7 @@ export function Form({
       {heading && <Heading>{heading}</Heading>}
       <div
         className={clsx(
-          styles.inputs,
+          styles.children,
           heading && styles.heading,
           small && styles.small
         )}

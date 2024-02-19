@@ -10,7 +10,7 @@ export interface FabProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 export function Fab({ icon: Icon, className, ...props }: FabProps) {
   return (
     <a {...props} className={clsx(styles.fab, className)}>
-      <Icon size={24} />
+      <Icon />
     </a>
   );
 }

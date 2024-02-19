@@ -1,16 +1,16 @@
-.inputs {
+.children {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  max-width: 350px;
+  max-width: 22rem;
 }
 
-.inputs.heading {
+.children.small {
+  max-width: 14rem;
+}
+
+.children.heading {
   padding-top: 2rem;
-}
-
-.inputs.small {
-  max-width: 225px;
 }
