@@ -9,17 +9,21 @@ import {
   OpenVault,
   CreateVault,
   EditItem,
+  Error,
 } from "./pages";
 
 export function App() {
   const { error, db, object, records, connect } = useStore();
+  useEffect(() => {
+    history.replaceState(null, "", "/");
+  }, []);
   useEffect(() => {
     if (!error && !db) {
       connect();
     }
   }, [error, db, connect]);
   if (error) {
-    return error.message;
+    return <Error />;
   }
   if (!db) {
     return null;

@@ -32,7 +32,7 @@ export function Item() {
   }, [update, record, deleting]);
   if (!record) {
     if (deleting) {
-      return <Redirect to="/" />;
+      return <Redirect replace to="/" />;
     } else {
       return <NotFound />;
     }
@@ -41,7 +41,7 @@ export function Item() {
   return (
     <main className={styles.container}>
       <div className={styles.header}>
-        <Heading>{name}</Heading>
+        <Heading className={styles.heading}>{name}</Heading>
         <FlexGrow />
         <Link href={`/item/${id}/edit`}>
           <Fab icon={EditIcon} aria-label="edit" />

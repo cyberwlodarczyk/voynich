@@ -19,7 +19,9 @@ export function ItemEntry({
   const labelId = useId();
   return (
     <div aria-labelledby={labelId} className={styles.entry}>
-      <Icon className={styles.icon} />
+      <div>
+        <Icon className={styles.icon} />
+      </div>
       {text ? (
         <div>
           <div id={labelId} className={styles.label}>
@@ -39,7 +41,7 @@ export function ItemEntry({
           <IconButton
             icon={CopyIcon}
             aria-label="copy"
-            onClick={() => console.log(copy)}
+            onClick={() => navigator.clipboard.writeText(copy)}
           />
         )}
       </div>

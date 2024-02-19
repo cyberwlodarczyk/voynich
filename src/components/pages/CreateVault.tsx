@@ -36,7 +36,7 @@ export function CreateVault() {
             if (masterPassword === "") {
               setError({ field: 0, message: "required" });
             } else if (!isValidPassword(masterPassword)) {
-              setError({ field: 0, message: "weak" });
+              setError({ field: 0, message: "invalid" });
             } else if (repeatedMasterPassword === "") {
               setError({ field: 1, message: "required" });
             } else if (repeatedMasterPassword !== masterPassword) {
