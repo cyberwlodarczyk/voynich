@@ -29,7 +29,7 @@ export interface VaultItemProps {
 export function VaultItem({ record: { id, category, name } }: VaultItemProps) {
   const Icon = ICONS[category];
   return (
-    <Link href={`/item/${id}`}>
+    <Link asChild href={`/item/${id}`}>
       <a className={styles.link}>
         <span aria-label={category} className={styles.category}>
           <Icon />

@@ -11,7 +11,7 @@ export function Vault() {
       <div className={styles.header}>
         <Heading>vault</Heading>
         <FlexGrow />
-        <Link href="/item/create">
+        <Link asChild href="/item/create">
           <Fab aria-label="create item" icon={PlusIcon} />
         </Link>
       </div>

@@ -43,7 +43,7 @@ export function Item() {
       <div className={styles.header}>
         <Heading className={styles.heading}>{name}</Heading>
         <FlexGrow />
-        <Link href={`/item/${id}/edit`}>
+        <Link asChild href={`/item/${id}/edit`}>
           <Fab icon={EditIcon} aria-label="edit" />
         </Link>
         <IconButton
