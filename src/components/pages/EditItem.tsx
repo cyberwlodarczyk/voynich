@@ -18,7 +18,7 @@ export function EditItem() {
       onSubmit={async () => {
         const { id, createdAt } = record;
         await update((records) => [
-          ...records.filter((record) => id != record.id),
+          ...records.filter((record) => id !== record.id),
           { ...state, id, createdAt, editedAt: new Date() },
         ]);
         history.go(-1);

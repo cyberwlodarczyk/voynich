@@ -2,6 +2,7 @@ export * from "./Item";
 export * from "./Vault";
 export * from "./CreateItem";
 export * from "./CreateVault";
+export * from "./DeleteItem";
 export * from "./EditItem";
 export * from "./Error";
 export * from "./NotFound";

@@ -10,16 +10,33 @@
   padding: 0.5rem 1rem;
   width: 100%;
   line-height: 1.25;
+}
+
+.button.contained {
+  box-shadow: var(--box-shadow-1);
   color: var(--background);
   background-color: var(--primary-1);
-  box-shadow: var(--box-shadow-1);
   transition: background-color 0.2s, box-shadow 0.2s;
 }
 
-.button:hover,
-.button:focus-visible {
+.button.contained:hover,
+.button.contained:focus-visible {
   background-color: var(--primary-2);
   box-shadow: var(--box-shadow-2);
+}
+
+.button.text {
+  color: var(--primary-1);
+  background-color: transparent;
+  border: 2px solid var(--primary-1);
+  transition: border-color 0.2s;
+}
+
+.button.text:hover,
+.button.text:focus-visible {
+  color: var(--primary-2);
+  background-color: var(--surface-1);
+  border-color: var(--primary-2);
 }
 
 @media (min-width: 25em) {

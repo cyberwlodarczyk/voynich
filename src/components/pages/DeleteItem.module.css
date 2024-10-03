@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirmation {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: var(--letter-spacing-2);
+}
+
+.choice {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+  width: 12rem;
+}
+
+@media (min-width: 25em) {
+  .confirmation {
+    font-size: 1.75rem;
+  }
+}

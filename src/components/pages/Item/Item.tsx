@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Link, Redirect } from "wouter";
-import { useRecord, useStore } from "../../../lib";
+import { useState } from "react";
+import { Link } from "wouter";
+import { useRecord } from "../../../lib";
 import {
   FlexGrow,
   AtSignIcon,
@@ -22,20 +22,9 @@ import styles from "./Item.module.css";
 
 export function Item() {
   const record = useRecord();
-  const update = useStore((state) => state.update);
-  const [deleting, setDeleting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  useEffect(() => {
-    if (record && deleting) {
-      update((records) => records.filter(({ id }) => id !== record.id));
-    }
-  }, [update, record, deleting]);
   if (!record) {
-    if (deleting) {
-      return <Redirect replace to="/" />;
-    } else {
-      return <NotFound />;
-    }
+    return <NotFound />;
   }
   const { id, category, name, email, password, username } = record;
   return (
@@ -46,11 +35,9 @@ export function Item() {
         <Link asChild href={`/item/${id}/edit`}>
           <Fab icon={EditIcon} aria-label="edit" />
         </Link>
-        <IconButton
-          icon={TrashIcon}
-          aria-label="delete"
-          onClick={() => setDeleting(true)}
-        />
+        <Link asChild href={`/item/${id}/delete`}>
+          <IconButton icon={TrashIcon} aria-label="delete" />
+        </Link>
       </div>
       <div>
         <ItemEntry icon={TagIcon} label="category">

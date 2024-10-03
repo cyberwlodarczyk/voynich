@@ -8,6 +8,7 @@ import {
   Item,
   OpenVault,
   CreateVault,
+  DeleteItem,
   EditItem,
   Error,
 } from "./pages";
@@ -47,6 +48,9 @@ export function App() {
       </Route>
       <Route path="/item/:id/edit">
         <EditItem />
+      </Route>
+      <Route path="/item/:id/delete">
+        <DeleteItem />
       </Route>
       <Route>
         <NotFound />
